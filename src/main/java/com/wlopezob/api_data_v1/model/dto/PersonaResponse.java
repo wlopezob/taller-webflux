@@ -16,6 +16,7 @@ import lombok.Setter;
 @Builder
 public class PersonaResponse {
     private Long id;
+    private String documento;
     private String nombre;
     private String apellido;
     private Integer edad;

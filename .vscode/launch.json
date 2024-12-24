@@ -10,9 +10,10 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.wlopezob.api_data_v1.ApiDataV1Application",
-            "projectName": "ApiDataV1Application",
+            "projectName": "api-data-v1",
             "args": "--spring.profiles.active=dev",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": "-Dspring.profiles.active=dev -Duser.timezone=America/Lima",
         }
     ]
 }
