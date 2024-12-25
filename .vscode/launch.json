@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "api-data-v1",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.wlopezob.api_data_v1.ApiDataV1Application",
+            "projectName": "api-data-v1",
+            "args": "--spring.profiles.active=dev",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": "-Dspring.profiles.active=dev -Duser.timezone=America/Lima",
+        }
+    ]
+}
