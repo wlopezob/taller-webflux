@@ -1,0 +1,5 @@
+INSERT INTO PERSONA (documento, nombre, apellido, edad, fecha_nacimiento, id) VALUES ('12345678', 'Juan', 'Perez', 30, '1991-01-01', NEXT VALUE FOR persona_seq);
+INSERT INTO PERSONA (documento, nombre, apellido, edad, fecha_nacimiento, id) VALUES ('87654321', 'Maria', 'Gomez', 25, '1996-02-02', NEXT VALUE FOR persona_seq);
+INSERT INTO PERSONA (documento, nombre, apellido, edad, fecha_nacimiento, id) VALUES ('11223344', 'Carlos', 'Lopez', 40, '1981-03-03', NEXT VALUE FOR persona_seq);
+INSERT INTO PERSONA (documento, nombre, apellido, edad, fecha_nacimiento, id) VALUES ('44332211', 'Ana', 'Martinez', 35, '1986-04-04', NEXT VALUE FOR persona_seq);
+INSERT INTO PERSONA (documento, nombre, apellido, edad, fecha_nacimiento, id) VALUES ('55667788', 'Luis', 'Garcia', 28, '1993-05-05', NEXT VALUE FOR persona_seq);
