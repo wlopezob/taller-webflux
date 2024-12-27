@@ -58,4 +58,19 @@ public class PersonaServiceImpl implements PersonaService{
         return Mono.just(personaMapper.toResponse(persona));
     }
 
+    @Override
+    public Mono<PersonaResponse> update(Long id, PersonaRequest personaRequest) {
+        var persona = personaRepository.findById(id)
+            .map(p -> {
+                p.setDocumento(personaRequest.getDocumento());
+                p.setNombre(personaRequest.getNombre());
+                p.setApellido(personaRequest.getApellido());
+                p.setEdad(personaRequest.getEdad());
+                p.setFechaNacimiento(personaMapper.toEntity(personaRequest).getFechaNacimiento());
+                return personaRepository.save(p);
+            })
+            .orElseThrow();
+        return Mono.just(personaMapper.toResponse(persona));
+    }
+
 }

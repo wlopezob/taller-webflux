@@ -17,4 +17,5 @@ public interface PersonaService {
     Mono<PersonaEntity> findById(Long id);
     Mono<Void> deleteById(Long id);
     Mono<PersonaResponse> save(PersonaRequest personaRequest);
+    Mono<PersonaResponse> update(Long id, PersonaRequest personaRequest);
 }

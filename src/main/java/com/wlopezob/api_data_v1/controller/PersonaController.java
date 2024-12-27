@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,5 +49,10 @@ public class PersonaController {
     @PostMapping
     public Mono<PersonaResponse> save(@RequestBody PersonaRequest personaRequest) {
         return personaService.save(personaRequest);
+    }
+
+    @PatchMapping("/{id}")
+    public Mono<PersonaResponse> update(@PathVariable(name = "id") Long id, @RequestBody PersonaRequest personaRequest) {
+        return personaService.update(id, personaRequest);
     }
 }
