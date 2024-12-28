@@ -11,10 +11,12 @@ import reactor.core.publisher.Mono;
 
 public interface PersonaService {
 
-    List<PersonaEntity> findAll();
+    Flux<PersonaResponse> getAll();
     Mono<List<PersonaEntity>> findAllReactive();
     Flux<PersonaEntity> findAllReactiveFlux();
-    Mono<PersonaEntity> findById(Long id);
+    Mono<PersonaResponse> findById(Long id);
     Mono<Void> deleteById(Long id);
     Mono<PersonaResponse> save(PersonaRequest personaRequest);
+    Mono<PersonaResponse> update(Long id, PersonaRequest personaRequest);
+
 }

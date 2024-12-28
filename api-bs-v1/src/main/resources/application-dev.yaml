@@ -1,0 +1,10 @@
+server:
+    port: 8081
+spring:
+    devtools:
+        livereload:
+            enabled: true
+            port: 35728
+
+http-client:
+    base-url-data-api: http://localhost:8082/api/data-v1

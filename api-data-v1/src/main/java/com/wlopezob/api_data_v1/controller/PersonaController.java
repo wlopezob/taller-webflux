@@ -1,18 +1,17 @@
 package com.wlopezob.api_data_v1.controller;
 
-import java.util.List;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wlopezob.api_data_v1.model.dto.PersonaRequest;
 import com.wlopezob.api_data_v1.model.dto.PersonaResponse;
-import com.wlopezob.api_data_v1.model.enitity.PersonaEntity;
 import com.wlopezob.api_data_v1.services.PersonaService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,17 +25,17 @@ public class PersonaController {
     private final PersonaService personaService;
 
     @GetMapping
-    public List<PersonaEntity> findAll() {
-        return personaService.findAll();
+    public Flux<PersonaResponse> getAll() {
+        return personaService.getAll();
     }
 
-    @GetMapping("/reactive")
-    public Flux<PersonaEntity> findAllReactive() {
-        return personaService.findAllReactiveFlux();
-    }
+    // @GetMapping("/reactive")
+    // public Flux<PersonaEntity> findAllReactive() {
+    //     return personaService.findAllReactiveFlux();
+    // }
 
     @GetMapping("/{id}")
-    public Mono<PersonaEntity> findById(@PathVariable(name = "id") Long id) {
+    public Mono<PersonaResponse> findById(@PathVariable(name = "id") Long id) {
         return personaService.findById(id);
     }
 
@@ -48,5 +47,11 @@ public class PersonaController {
     @PostMapping
     public Mono<PersonaResponse> save(@RequestBody PersonaRequest personaRequest) {
         return personaService.save(personaRequest);
+    }
+
+    @PutMapping("/{id}")
+    public Mono<ResponseEntity<PersonaResponse>> update(@PathVariable(name = "id") Long id, @RequestBody PersonaRequest personaRequest) {
+        return personaService.update(id, personaRequest)
+            .map(ResponseEntity::ok);
     }
 }

@@ -1,6 +1,7 @@
 package com.wlopezob.api_data_v1.services.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import com.wlopezob.api_data_v1.model.dto.PersonaResponse;
 import com.wlopezob.api_data_v1.model.enitity.PersonaEntity;
 import com.wlopezob.api_data_v1.repository.PersonaRepository;
 import com.wlopezob.api_data_v1.services.PersonaService;
+import com.wlopezob.api_data_v1.util.Util;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
@@ -23,8 +25,11 @@ public class PersonaServiceImpl implements PersonaService{
     private final PersonaMapper personaMapper;
 
     @Override
-    public List<PersonaEntity> findAll() {
-        return personaRepository.findAll();
+    public Flux<PersonaResponse> getAll() {
+        var personas = personaRepository.findAll()
+            .stream().map(p -> personaMapper.toResponse(p))
+            .collect(Collectors.toList());
+        return Flux.fromIterable(personas);   
     }
 
     @Override
@@ -39,9 +44,10 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public Mono<PersonaEntity> findById(Long id) {
+    public Mono<PersonaResponse> findById(Long id) {
         var persona = personaRepository.findById(id)
-            .map(p -> Mono.just(p))
+            .map(personaMapper::toResponse)
+            .map(Mono::just)
             .orElse(Mono.empty());
         return persona;
     }
@@ -55,6 +61,21 @@ public class PersonaServiceImpl implements PersonaService{
     public Mono<PersonaResponse> save(PersonaRequest personaRequest) {
         var persona = personaMapper.toEntity(personaRequest);
         personaRepository.save(persona);
+        return Mono.just(personaMapper.toResponse(persona));
+    }
+
+    @Override
+    public Mono<PersonaResponse> update(Long id, PersonaRequest personaRequest) {
+        var persona = personaRepository.findById(id)
+            .map(p -> {
+                p.setDocumento(personaRequest.getDocumento());
+                p.setNombre(personaRequest.getNombre());
+                p.setApellido(personaRequest.getApellido());
+                p.setEdad(personaRequest.getEdad());
+                p.setFechaNacimiento(Util.stringToDate(personaRequest.getFechaNacimiento()));
+                return personaRepository.save(p);
+            })
+            .orElseThrow(() -> new RuntimeException("Persona not found"));
         return Mono.just(personaMapper.toResponse(persona));
     }
 

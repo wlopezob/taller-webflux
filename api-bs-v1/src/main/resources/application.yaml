@@ -1,0 +1,5 @@
+spring:
+    application:
+        name: api-bs-v1
+    webflux:
+        base-path: /api/bs-v1

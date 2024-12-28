@@ -9,5 +9,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+  devtools:
+    livereload:
+      enabled: true
+      port: 35729      
 server:
   port: 8082
+  
